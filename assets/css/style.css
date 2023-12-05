@@ -35,3 +35,33 @@ a {
 #navbar-list > li {
     padding: 0 1rem;
 }
+
+/* Calendar */
+#calendar-container {
+    max-width: 700px;
+}
+
+#month-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    align-items: center;
+}
+
+#calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding: 1rem;
+}
+
+.calendar-day {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem 
+}
+
+.today {
+    font-weight: 700;
+}
