@@ -48,6 +48,10 @@ a {
     align-items: center;
 }
 
+#calendar-navigation button:hover {
+    cursor: pointer;
+}
+
 #calendar {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
@@ -64,4 +68,9 @@ a {
 
 .today {
     font-weight: 700;
+}
+
+.last-month-day,
+.next-month-day {
+    color: grey;
 }
