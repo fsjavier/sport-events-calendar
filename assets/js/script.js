@@ -15,12 +15,12 @@ let month = date.getMonth();
 const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'
-]
+];
 const sportsDateDisplayOptions = {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
-}
+};
 let activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
 
 // Variable to store Sports data from JSON
@@ -51,7 +51,7 @@ function generateCalendar(year, month) {
     const daysInMonth = lastDayOfMonthDate.getDate();
 
     // Month to be displayed in HTML
-    currentMonthElement.innerText = `${year} ${monthNames[month]}`
+    currentMonthElement.innerText = `${year} ${monthNames[month]}`;
 
     // Store calendar HTML days
     let daysHtml = '';
@@ -101,10 +101,10 @@ function generateCalendar(year, month) {
     const calendarDaysElements = document.querySelectorAll('.calendar-day');
     calendarDaysElements.forEach(day => {
         day.addEventListener("click", () => {
-            const date = new Date(day.getAttribute('data-date'))
+            const date = new Date(day.getAttribute('data-date'));
             activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
             activeDayElement.innerHTML = activeDay;
-            displaySportsEventsSummary(sportsEvents, date)
+            displaySportsEventsSummary(sportsEvents, date);
         });
     });
 }
@@ -135,7 +135,7 @@ prenexElements.forEach(preNex => {
 
         // Call the generateCalendar function
         // to update the calendar
-        generateCalendar(year, month)
+        generateCalendar(year, month);
     });
 });
 
@@ -171,9 +171,9 @@ function displaySportsEventsSummary(sportsEvents, date) {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, '0');
     const day = (date.getDate()).toString().padStart(2, '0');
-    const dateFormatted = `${year}-${month}-${day}`
-    const dayEvents = sportsEvents.filter(sportsEvent => sportsEvent.dateVenue === dateFormatted)
-    let eventsHTML = ''
+    const dateFormatted = `${year}-${month}-${day}`;
+    const dayEvents = sportsEvents.filter(sportsEvent => sportsEvent.dateVenue === dateFormatted);
+    let eventsHTML = '';
     if (dayEvents.length > 0) {
         dayEvents.forEach(dayEvent => {
             if (
@@ -181,7 +181,7 @@ function displaySportsEventsSummary(sportsEvents, date) {
                 dayEvent.homeTeam && dayEvent.homeTeam.slug !== null && dayEvent.homeTeam.slug !== undefined &&
                 dayEvent.awayTeam && dayEvent.awayTeam.slug !== null && dayEvent.awayTeam.slug !== undefined
             ){
-                const slug = `${dayEvent.dateVenue}_${dayEvent.homeTeam.slug}_${dayEvent.awayTeam.slug}`
+                const slug = `${dayEvent.dateVenue}_${dayEvent.homeTeam.slug}_${dayEvent.awayTeam.slug}`;
                 eventsHTML += `
                     <a href='event_details.html?eventId=${slug}'>
                         <div class="summary-event">
@@ -193,14 +193,14 @@ function displaySportsEventsSummary(sportsEvents, date) {
                             </div>
                         </div>
                     </a>
-                `
+                `;
             } else {
-                eventsHTML += 'There are no events'
+                eventsHTML += 'There are no events';
             }
-        })
-        dayEventsElement.innerHTML = eventsHTML
+        });
+        dayEventsElement.innerHTML = eventsHTML;
     } else {
-        dayEventsElement.innerHTML = 'There are no events'
+        dayEventsElement.innerHTML = 'There are no events';
     }
 }
 
@@ -208,11 +208,9 @@ async function init() {
     sportsEvents = await fetchJsonData(sportDataJson);
     generateCalendar(year, month);
     activeDayElement.innerText = activeDay;
-    displaySportsEventsSummary(sportsEvents, date)
+    displaySportsEventsSummary(sportsEvents, date);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    init()
-})
-
-
+    init();
+});
