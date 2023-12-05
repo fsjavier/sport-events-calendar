@@ -1,0 +1,37 @@
+/* Generic rules */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Header */
+#navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+#navbar-list {
+    display: flex;
+    align-items: center;
+}
+
+#navbar-list > li {
+    padding: 0 1rem;
+}
