@@ -16,7 +16,7 @@
         <nav id="navbar">
             <a href="index.html"><h1>Sports calendar</h1></a>
             <ul id="navbar-list">
-                <li><a href="#">Home</a></li>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="#">Add event</a></li>
             </ul>
         </nav>
@@ -24,13 +24,17 @@
     <main>
         <div id="calendar-container">
             <div id="month-header">
-                <h2 id="current-month"></h2>
+                <h3 id="current-month"></h3>
                 <div id="calendar-navigation">
                     <button id="calendar-prev">Prev</button>
                     <button id="calendar-next">Next</button>
                 </div>
             </div>
             <div id="calendar"></div>
+        </div>
+        <div id="sport-events">
+            <h2>Events</h2><span id="active-day"></span>
+            <div id="day-events"></div>
         </div>
     </main>
 

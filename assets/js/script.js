@@ -3,6 +3,9 @@ const currentMonthElement = document.getElementById('current-month');
 const calendarElement = document.getElementById('calendar');
 const prenexElements = document.querySelectorAll('#calendar-navigation button');
 
+// File paths
+const sportDataJson = '/assets/json/sportData.json'
+
 // Initialize date
 let date = new Date();
 let year = date.getFullYear();
@@ -21,13 +24,13 @@ function generateCalendar(year, month) {
     const firstDayOfMonthDate = new Date(year, month, 1);
 
     // Day of the week when the month starts
-    const DayNumberFirstDayOfMonth = firstDayOfMonthDate.getUTCDay()
+    const DayNumberFirstDayOfMonth = firstDayOfMonthDate.getUTCDay();
 
     // Get the last day of the month
     const lastDayOfMonthDate = new Date(year, month + 1, 0);
 
     // Day of the week when the month ends
-    const DayNumberLastDayOfMonth = lastDayOfMonthDate.getUTCDay()
+    const DayNumberLastDayOfMonth = lastDayOfMonthDate.getUTCDay();
 
     // Get the last day of the previous month
     const lastDayOfPreviousMonthDate = new Date(year, month, 0).getDate();
@@ -56,7 +59,7 @@ function generateCalendar(year, month) {
         const isToday = calendarDate.toDateString() === new Date().toDateString();
         const monthFormatted = (date.getMonth() + 1).toString().padStart(2, '0');
         const dayFormatted = day.toString().padStart(2, '0');
-        const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`
+        const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
         daysHtml += `
             <div class="calendar-day ${isToday ? 'today' : ''}" data-date="${dateFormatted}">
                 ${day}
@@ -75,12 +78,6 @@ function generateCalendar(year, month) {
 
     calendarElement.innerHTML = daysHtml;
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-    generateCalendar(year, month)
-    console.log(date.toDateString())
-})
-
 
 // Attach a click event listener to navigate month
 prenexElements.forEach(preNex => {
@@ -112,5 +109,26 @@ prenexElements.forEach(preNex => {
     });
 });
 
+async function fetchJsonData(file) {
+    try {
+        const response = await fetch(file);
+        const jsonText = await response.text();
+        // regex to remove trailing commas, source: 
+        https://stackoverflow.com/questions/34344328/json-remove-trailing-comma-from-last-object
+        const regex = /\,(?=\s*?[\}\]])/g;
+        const fixedJsonData = jsonText.replace(regex, '');
+        const jsonData = JSON.parse(fixedJsonData);
+        return jsonData.data;
+    }
+    catch(e) {
+        console.log('Error: ', e);
+        return [];
+    }
+}
+
+fetchJsonData(sportDataJson);
 
 
+document.addEventListener('DOMContentLoaded', () => {
+    generateCalendar(year, month)
+})
