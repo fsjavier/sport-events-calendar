@@ -78,3 +78,12 @@ a {
 .next-month-day {
     color: grey;
 }
+
+.calendar-day:hover {
+    cursor: pointer;
+}
+
+/* Events summary */
+.summary-event {
+    margin: 1rem 0;
+}
