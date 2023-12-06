@@ -18,10 +18,15 @@ main {
 
 ul {
     list-style-type: none;
+    padding: 0;
 }
 
 a {
     text-decoration: none;
+}
+
+.hide {
+    display: none;
 }
 
 /* Header */
@@ -86,4 +91,40 @@ a {
 /* Events summary */
 .summary-event {
     margin: 1rem 0;
+}
+
+/* Event details */
+#event-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    padding: 1rem 5rem;
+    box-shadow: 0px 0px 6px -1px rgba(69, 73, 81, 0.6);
+}
+
+#event-details-container > * {
+    padding: 0.5rem;
+}
+
+#event-details-local-date {
+    margin-top: 2rem;
+    font-size: 1.3rem;
+}
+
+#event-details-game-score {
+    display: flex;
+}
+
+#event-details-competition-stage {
+    text-transform: capitalize;
+}
+
+#event-details-home-team {
+    padding-right: 0.5rem;
+}
+
+#event-details-away-team {
+    padding-left: 0.5rem;
 }

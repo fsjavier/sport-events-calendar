@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="/assets/css/style.css">
 
-    <title>Sport Events Calendar</title>
+    <title>Sport Events Details</title>
 </head>
 <body>
     <header>
@@ -22,22 +22,22 @@
         </nav>
     </header>
     <main>
-        <div id="calendar-container">
-            <div id="month-header">
-                <h3 id="current-month"></h3>
-                <div id="calendar-navigation">
-                    <button id="calendar-prev">Prev</button>
-                    <button id="calendar-next">Next</button>
-                </div>
+        <div id="event-details-local-date"></div>
+        <div id="event-details-container">
+            <div id="event-details-game-status"></div>
+            <div id="event-details-competition"></div>
+            <div id="event-details-game-score">
+                <div id="event-details-home-team"></div>
+                <span>-</span>
+                <div id="event-details-away-team"></div>
             </div>
-            <div id="calendar"></div>
-        </div>
-        <div id="sport-events">
-            <h2>Events <span id="active-day"></span></h2>
-            <div id="day-events"></div>
+            <div id="event-details-goals-section">
+                <div id="event-details-goals"></div>
+                <div id="event-details-goal-scorers"></div>
+            </div>
         </div>
     </main>
 
-    <script type="module" src="/assets/js/script.js"></script>
+    <script type="module" src="/assets/js/event-details.js"></script>
 </body>
 </html>

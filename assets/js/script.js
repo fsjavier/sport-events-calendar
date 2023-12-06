@@ -141,7 +141,7 @@ prenexElements.forEach(preNex => {
 
 /**
  * Fetches a JSON file, cleans up trailing commas from objects
- * and returnsa the cleaned data
+ * and returns the cleaned data
  */
 async function fetchJsonData(file) {
     try {
@@ -183,7 +183,7 @@ function displaySportsEventsSummary(sportsEvents, date) {
             ){
                 const slug = `${dayEvent.dateVenue}_${dayEvent.homeTeam.slug}_${dayEvent.awayTeam.slug}`;
                 eventsHTML += `
-                    <a href='event_details.html?eventId=${slug}'>
+                    <a href='event-details.html?eventId=${slug}'>
                         <div class="summary-event">
                             <div>
                                 ${dayEvent.originCompetitionName}
@@ -211,6 +211,6 @@ async function init() {
     displaySportsEventsSummary(sportsEvents, date);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    init();
-});
+init();
+
+export { fetchJsonData };
