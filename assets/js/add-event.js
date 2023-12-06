@@ -1,3 +1,20 @@
+// Script to open and close "event added" modal
+const eventAddedModal = document.getElementById("event-added-modal");
+const closeeventAddedModal = document.getElementById("close-modal");
+
+// When the user clicks on <span> (x), close the modal
+closeeventAddedModal.addEventListener("click", function() {
+    eventAddedModal.style.display = "none";
+});
+
+// When the user clicks anywhere outside of the modal, close it
+window.addEventListener("click", function(event) {
+    if (event.target == eventAddedModal) {
+        eventAddedModal.style.display = "none";
+    }
+});
+
+
 let newEventArray = []
 
 if (document.getElementById('add-event-form')) {
@@ -43,6 +60,7 @@ if (document.getElementById('add-event-form')) {
         document.getElementById('add-event-form').reset()
 
         localStorage.setItem('newEventArray', JSON.stringify(newEventArray));
+        eventAddedModal.style.display = "flex";
     });
 }
 
