@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Online interactive calendar for sports fans">
+    <meta name="keywords" content="calendar, sport, football, basketball, tennis">
+
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <title>Add Event</title>
+</head>
+<body>
+    <header>
+        <nav id="navbar">
+            <a href="index.html"><h1>Sports calendar</h1></a>
+            <ul id="navbar-list">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="add-event.html">Add event</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Add Event</h2>
+        <form id="add-event-form">
+            <div class="form-element">
+                <label for="competition-name">Competition Name:</label>
+                <input type="text" name="originCompetitionName" id="competition-name" required>
+            </div>
+
+            <div class="form-element">
+                <label for="competition-stage">Competition Stage:</label>
+                <input type="text" name="stageName" id="competition-stage" required>
+            </div>
+    
+            <div class="form-element">
+                <label for="event-date">Event Date:</label>
+                <input type="date" name="dateVenue" id="event-date" required>
+            </div>
+
+            <div class="form-element">
+                <label for="home-team-name">Home Team Name:</label>
+                <input type="text" name="homeTeamName" id="home-team-name">
+            </div>
+
+            <div class="form-element">
+                <label for="home-team-goals">Home Team Goals:</label>
+                <input type="number" name="homeTeamGoals" id="home-team-goals">
+            </div>
+
+            <div class="form-element">
+                <label for="away-team-name">Away Team Name:</label>
+                <input type="text" name="awayTeamName" id="away-team-name">
+            </div>
+
+            <div class="form-element">
+                <label for="away-team-goals">Away Team Goals:</label>
+                <input type="number" name="awayTeamGoals" id="away-team-goals">
+            </div>
+    
+            <div class="form-element">
+                <select name="eventStatus" id="event-status">
+                    <option value="scheduled">Scheduled</option>
+                    <option value="played">Played</option>
+                </select>
+            </div>
+    
+            <div class="form-element">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </main>
+
+    <script src="/assets/js/add-event.js"></script>
+</body>
+</html>

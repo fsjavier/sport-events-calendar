@@ -1,3 +1,5 @@
+// import { newEventArray } from "./add-event.js";
+
 // Get HTML Elements
 const currentMonthElement = document.getElementById('current-month');
 const calendarElement = document.getElementById('calendar');
@@ -25,7 +27,7 @@ let activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
 
 // Variable to store Sports data from JSON
 let sportsEvents;
-
+let sportsEventsStorage;
 
 /**
  * Generates the calendar based on the year and month passed as parameters.
@@ -204,13 +206,26 @@ function displaySportsEventsSummary(sportsEvents, date) {
     }
 }
 
+
+
+
+
 async function init() {
     sportsEvents = await fetchJsonData(sportDataJson);
+
+    // Retrieve added event from localStorage 
+    // and push to the existing events array
+    const storedNewEventArray = localStorage.getItem('newEventArray');
+    const parsedNewEventArray = storedNewEventArray ? JSON.parse(storedNewEventArray) : [];
+    parsedNewEventArray.forEach(sportsEvent => sportsEvents.push(sportsEvent))
+
+    // Generate calendar
     generateCalendar(year, month);
     activeDayElement.innerText = activeDay;
     displaySportsEventsSummary(sportsEvents, date);
+
+    // Save to local storage to be used in event details
+    localStorage.setItem('sportsEventsStorage', JSON.stringify(sportsEvents));
 }
 
 init();
-
-export { fetchJsonData };

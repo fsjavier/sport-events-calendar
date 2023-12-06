@@ -128,3 +128,18 @@ a {
 #event-details-away-team {
     padding-left: 0.5rem;
 }
+
+/* Add event form */
+#add-event-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#add-event-form > * {
+    padding: 0.5rem;
+}
+
+.form-element {
+    display: flex;
+    flex-direction: column;
+}

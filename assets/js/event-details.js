@@ -1,5 +1,3 @@
-import { fetchJsonData } from "./script.js";
-
 const eventDetailsContainerElement = document.getElementById('event-details-container')
 const eventDetailsLocalDateElement = document.getElementById('event-details-local-date')
 const eventDetailsCompetitionElement = document.getElementById('event-details-competition')
@@ -10,10 +8,9 @@ const eventDetailsGoalsSectionElement = document.getElementById('event-details-g
 const eventDetailsGoalsElement = document.getElementById('event-details-goals')
 const eventDetailsGoalScorersElement = document.getElementById('event-details-goal-scorers')
 
+const sportEventsFromLocalStorage = localStorage.getItem('sportsEventsStorage');
+const sportsEvents = sportEventsFromLocalStorage ? JSON.parse(sportEventsFromLocalStorage) : [];
 
-const sportDataJson = '/assets/json/sportData.json';
-
-let sportEvents;
 let eventToDisplay;
 
 let eventDate;
@@ -29,7 +26,7 @@ function getEventDataFromUrl() {
 }
 
 function filterEvent (eventDate, eventHomeTeamSlug, eventAwayTeamSlug) {
-    eventToDisplay = sportEvents.filter(sportEvent => (
+    eventToDisplay = sportsEvents.filter(sportEvent => (
         sportEvent.dateVenue === eventDate &&
         sportEvent.homeTeam.slug === eventHomeTeamSlug &&
         sportEvent.awayTeam.slug === eventAwayTeamSlug
@@ -66,7 +63,6 @@ function diplayEventInformation() {
     eventDetailsCompetitionElement.innerHTML = `${competitionName} - <span id="event-details-competition-stage">${competitionStage}</span>`
     eventDetailsHomeTeamElement.innerText = `${homeTeamName} ${homeTeamGoals} `
     eventDetailsAwayTeamElement.innerText = ` ${awayTeamGoals} ${awayTeamName}`
-    console.log(goals)
     if (goals.length === 0) {
         eventDetailsGoalsSectionElement.classList.add('hide')
     }
@@ -74,8 +70,7 @@ function diplayEventInformation() {
     eventDetailsGoalScorersElement.appendChild(goalScorers);
 }
 
-async function init() {
-    sportEvents = await fetchJsonData(sportDataJson)
+function init() {
     getEventDataFromUrl()
     diplayEventInformation()
 }
