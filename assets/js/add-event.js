@@ -28,10 +28,10 @@ if (document.getElementById('add-event-form')) {
         const eventCompetitionEventDate = document.getElementById('event-date').value;
         const eventCompetitionHomeTeamName = document.getElementById('home-team-name').value;
         const eventCompetitionHomeTeamSlug = eventCompetitionHomeTeamName.toLowerCase().replace(' ','-');
-        const eventCompetitionHomeTeamGoals = parseInt(document.getElementById('home-team-goals').value);
+        const eventCompetitionHomeTeamGoals = parseInt(document.getElementById('home-team-goals').value) ? parseInt(document.getElementById('home-team-goals').value) : 0;
         const eventCompetitionAwayTeamName = document.getElementById('away-team-name').value;
         const eventCompetitionAwayTeamSlug = eventCompetitionAwayTeamName.toLowerCase().replace(' ','-');
-        const eventCompetitionAwayTeamGoals = parseInt(document.getElementById('away-team-goals').value);
+        const eventCompetitionAwayTeamGoals = parseInt(document.getElementById('away-team-goals').value) ? parseInt(document.getElementById('away-team-goals').value) : 0;
         const eventCompetitionEvenStatus = document.getElementById('event-status').value;
     
         // Create new event with provided data
