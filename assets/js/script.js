@@ -1,5 +1,3 @@
-// import { newEventArray } from "./add-event.js";
-
 // Get HTML Elements
 const currentMonthElement = document.getElementById('current-month');
 const calendarElement = document.getElementById('calendar');
@@ -25,7 +23,7 @@ const sportsDateDisplayOptions = {
 };
 let activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
 
-// Variable to store Sports data from JSON
+// Variables to store Sports data from JSON
 let sportsEvents;
 let sportsEventsStorage;
 
@@ -58,7 +56,7 @@ function generateCalendar(year, month) {
     // Store calendar HTML days
     let daysHtml = '';
 
-    // Populate calendar with last days of previous months
+    // Add last days of previous months
     for (let day = DayNumberFirstDayOfMonth ; day > 0; day--) {
         const monthFormatted = month.toString().padStart(2, '0');
         const dayFormatted = (lastDayOfPreviousMonthDate + 1 - day).toString().padStart(2, '0');
@@ -70,7 +68,7 @@ function generateCalendar(year, month) {
         `;
     }
 
-    // Populate calendar with days of the month
+    // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
         const calendarDate = new Date(year, month, day);
         const isToday = calendarDate.toDateString() === new Date().toDateString();
@@ -98,15 +96,25 @@ function generateCalendar(year, month) {
 
     // Populate calendar
     calendarElement.innerHTML = daysHtml;
-
-    // Attach a click event listener to each calendar day
+    
     const calendarDaysElements = document.querySelectorAll('.calendar-day');
+    // Attach a click event listener to each calendar day
     calendarDaysElements.forEach(day => {
         day.addEventListener("click", () => {
             const date = new Date(day.getAttribute('data-date'));
             activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
             activeDayElement.innerHTML = activeDay;
             displaySportsEventsSummary(sportsEvents, date);
+        });
+    // Add class to days with events
+        sportsEvents.forEach(sportsEvent => {
+            if (day.getAttribute('data-date') === sportsEvent.dateVenue &&
+            sportsEvent.dateVenue && sportsEvent.dateVenue !== null && sportsEvent.dateVenue !== undefined &&
+            sportsEvent.homeTeam && sportsEvent.homeTeam.slug !== null && sportsEvent.homeTeam.slug !== undefined &&
+            sportsEvent.awayTeam && sportsEvent.awayTeam.slug !== null && sportsEvent.awayTeam.slug !== undefined
+            ) {
+                day.classList.add('has-events')
+            }
         });
     });
 }
@@ -162,7 +170,6 @@ async function fetchJsonData(file) {
     }
 }
 
-
 /**
  * Filter the events for a given date and inserts in the HTML
  * file a summary of the event.
@@ -193,6 +200,7 @@ function displaySportsEventsSummary(sportsEvents, date) {
                             <div>
                                 ${dayEvent.homeTeam.name} ${dayEvent.status === 'played' ? dayEvent.result.homeGoals : ''} - ${dayEvent.status === 'played' ? dayEvent.result.awayGoals : ''} ${dayEvent.awayTeam.name} ${dayEvent.status === 'played' ? '' : "Not started"}
                             </div>
+                            <hr>
                         </div>
                     </a>
                 `;
@@ -206,10 +214,11 @@ function displaySportsEventsSummary(sportsEvents, date) {
     }
 }
 
-
-
-
-
+/**
+ * Fetch the data from the JSON file and runs the 
+ * functions to populate HTML page.
+ * Saves to local storage the sports events as a string.
+ */
 async function init() {
     sportsEvents = await fetchJsonData(sportDataJson);
 

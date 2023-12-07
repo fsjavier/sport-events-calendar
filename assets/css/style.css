@@ -1,3 +1,10 @@
+:root {
+    /* Colors */
+    --ligth-mustard: rgba(165, 138, 3, 0.2);
+    --wine-red: rgb(63, 17, 17);
+    --off-lavender: rgba(216,212,242,0.1);
+}
+
 /* Generic rules */
 html,
 body {
@@ -29,10 +36,19 @@ a {
     display: none;
 }
 
+button {
+    background-color: var(--ligth-mustard);
+    color: var(--wine-red);
+    border: 1px solid var(--wine-red);
+    padding: 0.4rem;
+    border-radius: 5px;
+}
+
 /* Header */
 #navbar {
     display: flex;
     justify-content: space-between;
+    background-color: var(--off-lavender);
 }
 
 #navbar-list {
@@ -47,7 +63,7 @@ a {
 /* Calendar */
 #calendar-container {
     margin-top: 1rem;
-    max-width: 700px;
+    max-width: 600px;
 }
 
 #month-header {
@@ -65,14 +81,17 @@ a {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
-    padding: 1rem;
+    padding: 1rem 0.5rem;
 }
 
 .calendar-day {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.5rem 
+    height: 1.3rem;
+    width: 1.3rem;
+    padding: 0.5rem;
 }
 
 .today {
@@ -86,6 +105,18 @@ a {
 
 .calendar-day:hover {
     cursor: pointer;
+    background-color: var(--ligth-mustard);
+    padding: 0.4rem;
+    border-radius: 50%;
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+.has-events::after {
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: blue;
 }
 
 /* Events summary */
