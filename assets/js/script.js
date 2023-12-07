@@ -221,7 +221,9 @@ function displaySportsEventsSummary(sportsEvents, date) {
                                 ${dayEvent.originCompetitionName}
                             </div>
                             <div>
-                                ${dayEvent.homeTeam.name} ${dayEvent.status === 'played' ? dayEvent.result.homeGoals : ''} - ${dayEvent.status === 'played' ? dayEvent.result.awayGoals : ''} ${dayEvent.awayTeam.name} ${dayEvent.status === 'played' ? '' : "Not started"}
+                                ${dayEvent.homeTeam.name} ${dayEvent.status === 'played' ? dayEvent.result.homeGoals : ''} - 
+                                ${dayEvent.status === 'played' ? dayEvent.result.awayGoals : ''} ${dayEvent.awayTeam.name}
+                                ${dayEvent.status === 'played' ? '' : " - Not started"}
                             </div>
                             <hr>
                         </div>
