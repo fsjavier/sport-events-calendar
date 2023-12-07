@@ -25,7 +25,6 @@ let activeDay = date.toLocaleDateString('en-AT', sportsDateDisplayOptions);
 
 // Variables to store Sports data from JSON
 let sportsEvents;
-let sportsEventsStorage;
 
 /**
  * Generates the calendar based on the year and month passed as parameters.
@@ -58,40 +57,17 @@ function generateCalendar(year, month) {
 
     // Add last days of previous months
     for (let day = DayNumberFirstDayOfMonth ; day > 0; day--) {
-        const monthFormatted = month.toString().padStart(2, '0');
-        const dayFormatted = (lastDayOfPreviousMonthDate + 1 - day).toString().padStart(2, '0');
-        const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
-        daysHtml += `
-            <div class="calendar-day last-month-day" data-date="${dateFormatted}">
-                ${lastDayOfPreviousMonthDate + 1 - day}
-            </div>
-        `;
+        daysHtml += addDaysPreviousMonthToCalendar(daysHtml, lastDayOfPreviousMonthDate, year, month, day);
     }
 
     // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
-        const calendarDate = new Date(year, month, day);
-        const isToday = calendarDate.toDateString() === new Date().toDateString();
-        const monthFormatted = (month + 1).toString().padStart(2, '0');
-        const dayFormatted = day.toString().padStart(2, '0');
-        const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
-        daysHtml += `
-            <div class="calendar-day ${isToday ? 'today' : ''}" data-date="${dateFormatted}">
-                ${day}
-            </div>
-        `;
+        daysHtml += addDaysToCalendar(daysHtml, year, month, day);
     }
 
     // Add first days of next month
     for (let day = DayNumberLastDayOfMonth; day < 6; day++) {
-        const monthFormatted = (month + 2).toString().padStart(2, '0');
-        const dayFormatted = (day - DayNumberLastDayOfMonth + 1).toString().padStart(2, '0');
-        const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
-        daysHtml += `
-            <div class="calendar-day next-month-day" data-date="${dateFormatted}">
-                ${day - DayNumberLastDayOfMonth + 1}
-            </div>
-        `;
+        daysHtml += addDaysNextMonthToCalendar(daysHtml, DayNumberLastDayOfMonth, year, month, day)
     }
 
     // Populate calendar
@@ -113,10 +89,57 @@ function generateCalendar(year, month) {
             sportsEvent.homeTeam && sportsEvent.homeTeam.slug !== null && sportsEvent.homeTeam.slug !== undefined &&
             sportsEvent.awayTeam && sportsEvent.awayTeam.slug !== null && sportsEvent.awayTeam.slug !== undefined
             ) {
-                day.classList.add('has-events')
+                day.classList.add('has-events');
             }
         });
     });
+}
+
+/**
+ * Add days of the current month to the calendar
+ */
+function addDaysToCalendar(daysHtml, year, month, day) {
+    const calendarDate = new Date(year, month, day);
+    const isToday = calendarDate.toDateString() === new Date().toDateString();
+    const monthFormatted = (month + 1).toString().padStart(2, '0');
+    const dayFormatted = day.toString().padStart(2, '0');
+    const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
+    daysHtml = `
+        <div class="calendar-day ${isToday ? 'today' : ''}" data-date="${dateFormatted}">
+            ${day}
+        </div>
+    `;
+    return daysHtml;
+}
+
+/**
+ * Add last days of the previous month to the calendar
+ */
+function addDaysPreviousMonthToCalendar(daysHtml, lastDayOfPreviousMonthDate, year, month, day) {
+    const monthFormatted = month.toString().padStart(2, '0');
+    const dayFormatted = (lastDayOfPreviousMonthDate + 1 - day).toString().padStart(2, '0');
+    const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
+    daysHtml = `
+        <div class="calendar-day last-month-day" data-date="${dateFormatted}">
+            ${lastDayOfPreviousMonthDate + 1 - day}
+        </div>
+    `;
+    return daysHtml;
+}
+
+/**
+ * Add first days of the next month to the calendar
+ */
+function addDaysNextMonthToCalendar(daysHtml, DayNumberLastDayOfMonth, year, month, day) {
+    const monthFormatted = (month + 2).toString().padStart(2, '0');
+    const dayFormatted = (day - DayNumberLastDayOfMonth + 1).toString().padStart(2, '0');
+    const dateFormatted = `${year}-${monthFormatted}-${dayFormatted}`;
+    daysHtml = `
+        <div class="calendar-day next-month-day" data-date="${dateFormatted}">
+            ${day - DayNumberLastDayOfMonth + 1}
+        </div>
+    `;
+    return daysHtml;
 }
 
 // Attach a click event listener to navigate months
@@ -226,7 +249,7 @@ async function init() {
     // and push to the existing events array
     const storedNewEventArray = localStorage.getItem('newEventArray');
     const parsedNewEventArray = storedNewEventArray ? JSON.parse(storedNewEventArray) : [];
-    parsedNewEventArray.forEach(sportsEvent => sportsEvents.push(sportsEvent))
+    parsedNewEventArray.forEach(sportsEvent => sportsEvents.push(sportsEvent));
 
     // Generate calendar
     generateCalendar(year, month);
